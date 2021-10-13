@@ -19,8 +19,11 @@ namespace Ferreteria.BL
 
         public List<Producto> ObtenerProductos()
         {
-            ListadeProductos = _contexto.Productos.ToList();
-            return _contexto.Productos.ToList();
+            ListadeProductos = _contexto.Productos
+             .Include("Categoria")
+             .ToList();
+
+            return ListadeProductos;
         }
         public void GuardarProducto(Producto producto)
         {
@@ -31,9 +34,12 @@ namespace Ferreteria.BL
             else
             {
                 var productoExistente = _contexto.Productos.Find(producto.Id);
+
                 productoExistente.Descripcion = producto.Descripcion;
+                productoExistente.CategoriaId = producto.CategoriaId;
                 productoExistente.Precio = producto.Precio;
-               
+                productoExistente.UrlImagen = producto.UrlImagen;
+
 
             }
          
@@ -42,7 +48,8 @@ namespace Ferreteria.BL
         }
         public Producto ObtenerProducto (int id)
         {
-            var producto = _contexto.Productos.Find(id);
+            var producto = _contexto.Productos
+             .Include("Categoria").FirstOrDefault(p => p.Id == id);
 
             return producto;
         }
