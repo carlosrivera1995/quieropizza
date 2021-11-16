@@ -19,6 +19,7 @@ namespace Ferreteria.WebAdmin.Controllers
             }
 
             // GET: Login
+
             public ActionResult Index()
         {
             FormsAuthentication.SignOut();
