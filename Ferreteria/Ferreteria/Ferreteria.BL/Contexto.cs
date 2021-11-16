@@ -19,6 +19,7 @@ namespace Ferreteria.BL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            Database.SetInitializer(new DatosdeInicio());
         }
 
 
@@ -28,5 +29,7 @@ namespace Ferreteria.BL
 
         public DbSet<Orden> Ordenes { get; set; }
         public DbSet<OrdenDetalle> OrdenDetalle { get; set; }
-    }
+        public DbSet<Usuario> Usuarios { get; set; }
+        
+        }
 }
